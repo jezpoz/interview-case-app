@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Socket, io } from "socket.io-client";
 
-const socket: Socket = io("localhost:3000");
+const socket: Socket = io(import.meta.env.MODE === "development" ? "http://localhost:3000" : "https://interview-case-api.fly.dev/");
 
 export function useSocket() {
   const [isConnected, setIsConnected] = useState<boolean>(socket.connected);
