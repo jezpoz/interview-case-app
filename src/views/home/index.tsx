@@ -4,12 +4,12 @@ import { useSocket } from "../../shared/hooks/useSocket";
 type Card = {
   suit: string;
   value: number | string;
-}
+};
 
 export default function Home() {
   const [gameStarted, setGameStarted] = useState<boolean>(false);
   const [gameFinished, setGameFinished] = useState<boolean>(false);
-  const [handScore, setHandScore] = useState<string>('');
+  const [handScore, setHandScore] = useState<string>("");
   const [hand, setHand] = useState<Card[]>([]);
   const { emit, listen, off } = useSocket();
 
@@ -24,7 +24,7 @@ export default function Home() {
   useEffect(() => {
     listen<Card>("deal_card", recieveCard);
     listen("game_end", gameEnded);
-    listen<string>("hand_score", setHandScore)
+    listen<string>("hand_score", setHandScore);
 
     return () => {
       off("deal_card");
@@ -40,13 +40,13 @@ export default function Home() {
 
   return (
     <div className="mx-auto sm:w-full sm:p-12 max-w-screen-2xl py-16">
-      <h1 className="text-5xl font-black">Game</h1>
+      <h1 className="text-5xl font-black">Poker</h1>
       {!gameStarted && (
         <button
           className="my-4 px-4 py-2 rounded shadow hover:shadow-md"
           onClick={startGame}
         >
-          Start
+          Deal me a hand
         </button>
       )}
       <div className="my-4 flex flex-row gap-2 items-center w-full">
@@ -61,13 +61,13 @@ export default function Home() {
           </div>
         ))}
       </div>
-      <div>Your score: {handScore}</div>
+      {gameStarted && <div>Your score: {handScore}</div>}
       {gameStarted && gameFinished && (
         <button
           className="my-4 px-4 py-2 rounded shadow hover:shadow-md"
           onClick={startGame}
         >
-          Play again
+          Deal me another hand
         </button>
       )}
     </div>
