@@ -32,6 +32,7 @@ If this was a hobby-project where I didn't have a deadline, I would like to add 
 - User management
 - User scoring
 - CI/CD deploying to [fly.io](https://fly.io/)
+- Move app and api code to a common codebase and use monorepo tools for easier development
 
 ## Straight Poker
 
