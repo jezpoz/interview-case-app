@@ -9,6 +9,7 @@ type Card = {
 export default function Home() {
   const [gameStarted, setGameStarted] = useState<boolean>(false);
   const [gameFinished, setGameFinished] = useState<boolean>(false);
+  const [handScore, setHandScore] = useState<string>('');
   const [hand, setHand] = useState<Card[]>([]);
   const { emit, listen, off } = useSocket();
 
@@ -23,6 +24,7 @@ export default function Home() {
   useEffect(() => {
     listen<Card>("deal_card", recieveCard);
     listen("game_end", gameEnded);
+    listen<string>("hand_score", setHandScore)
 
     return () => {
       off("deal_card");
@@ -59,6 +61,7 @@ export default function Home() {
           </div>
         ))}
       </div>
+      <div>Your score: {handScore}</div>
       {gameStarted && gameFinished && (
         <button
           className="my-4 px-4 py-2 rounded shadow hover:shadow-md"
